@@ -1,6 +1,7 @@
 torch
 transformers
 datasets
+python-dotenv
 numpy
 rouge-score
 matplotlib

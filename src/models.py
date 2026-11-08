@@ -1,9 +1,9 @@
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from src.config import MODEL_NAME
+from src.config import HF_TOKEN, MODEL_NAME
 
 def load_tokenizer(name=MODEL_NAME):
-    tok = AutoTokenizer.from_pretrained(name)
+    tok = AutoTokenizer.from_pretrained(name, token=HF_TOKEN)
     if tok.pad_token is None: # SmolLM2 has no pad token
         tok.pad_token = tok.eos_token
     return tok
@@ -13,5 +13,5 @@ def load_causal_lm(name_or_path=MODEL_NAME, device=None):
     policy, the frozen reference model, and as the backbone of the
     reward model and of the PPO value head."""
     device = device or ("cuda" if torch.cuda.is_available() else "cpu")
-    model = AutoModelForCausalLM.from_pretrained(name_or_path)
+    model = AutoModelForCausalLM.from_pretrained(name_or_path, token=HF_TOKEN)
     return model.to(device)

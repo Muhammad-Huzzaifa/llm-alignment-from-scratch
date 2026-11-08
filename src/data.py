@@ -54,13 +54,13 @@ def _make_pref(row, tok):
     return {"prompt_ids": p, "chosen_ids": c, "rejected_ids": r, "prompt": prompt, "chosen": ch, "rejected": rj}
 
 def load_sft_splits(tok):
-    ds = load_dataset(SFT_DATA)
+    ds = load_dataset(SFT_DATA, cache_dir=str(DATA_DIR), token=HF_TOKEN)
     train = _sample_valid(ds["train"], N_SFT_TRAIN, tok, _make_sft, SEED)
     val = _sample_valid(ds["valid"], N_SFT_VAL, tok, _make_sft, SEED)
     return train, val
 
 def load_preference_splits(tok):
-    ds = load_dataset(PREF_DATA)
+    ds = load_dataset(PREF_DATA, cache_dir=str(DATA_DIR), token=HF_TOKEN)
     train = _sample_valid(ds["train"], N_PREF_TRAIN, tok, _make_pref, SEED)
     val = _sample_valid(ds["valid1"], N_PREF_VAL, tok, _make_pref, SEED)
     return train, val
@@ -68,5 +68,5 @@ def load_preference_splits(tok):
 def load_eval_posts(tok):
     """Held-out posts (with their human reference summary) used to
     compare SFT, PPO and DPO at the end. Never train on these."""
-    ds = load_dataset(SFT_DATA)
+    ds = load_dataset(SFT_DATA, cache_dir=str(DATA_DIR), token=HF_TOKEN)
     return _sample_valid(ds["test"], N_EVAL_POSTS, tok, _make_sft, SEED)

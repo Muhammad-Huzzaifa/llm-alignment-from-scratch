@@ -1,5 +1,13 @@
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+
 MODEL_NAME = "HuggingFaceTB/SmolLM2-135M"  # base model for every stage
 
+DATA_DIR = Path("data")
+HF_TOKEN = os.getenv("HF_TOKEN")
 SFT_DATA = "CarperAI/openai_summarize_tldr"
 PREF_DATA = "CarperAI/openai_summarize_comparisons"
 

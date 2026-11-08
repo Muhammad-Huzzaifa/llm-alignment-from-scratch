@@ -12,7 +12,7 @@ custom PyTorch implementation of the full LLM alignment pipeline: SFT → reward
 │       └── index.html
 ├── checkpoints
 ├── notebooks
-│   └── experiments.ipynb
+│   └── llm_alignment_from_scratch_repo_execution.ipynb
 ├── README.md
 ├── requirements.txt
 ├── results
@@ -24,6 +24,7 @@ custom PyTorch implementation of the full LLM alignment pipeline: SFT → reward
 │   └── train.py
 └── src
     ├── batching.py
+    ├── check_starter.py
     ├── common.py
     ├── config.py
     ├── data.py
@@ -40,4 +41,5 @@ custom PyTorch implementation of the full LLM alignment pipeline: SFT → reward
 python3.10 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+python -m src.check_starter
 ```

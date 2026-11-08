@@ -1,0 +1,9 @@
+torch
+transformers
+datasets
+numpy
+rouge-score
+matplotlib
+fastapi
+jinja2
+uvicorn

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Learning to Summarize · SFT / PPO / DPO</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <a class="brand" href="/">
+        <span class="brand-name">llm-alignment</span>
+        <span class="brand-sub">from scratch</span>
+      </a>
+      <nav class="nav">
+        <a class="nav-link is-active" href="#composer">Summarize</a>
+        <a class="nav-link" href="#results">Results</a>
+        {% if metrics %}<a class="nav-link" href="#metrics">Metrics</a>{% endif %}
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <h1>Learning to<br>Summarize.</h1>
+          <h2>SFT → reward model → PPO / DPO</h2>
+          <p>
+            A SmolLM2-135M language model aligned from scratch in three stages.
+            Paste a Reddit post and compare supervised fine-tuning with PPO and DPO —
+            every summary is scored by the same reward model.
+          </p>
+        </div>
+
+        <div class="panel" id="composer">
+          <div class="panel-bar">
+            <span class="panel-file">post.txt</span>
+            <span class="panel-hint">TL;DR: added automatically</span>
+          </div>
+          <form id="compose-form" class="panel-body" novalidate>
+            <label class="sr-only" for="post">Reddit post</label>
+            <textarea id="post" class="post-input" spellcheck="false"
+              placeholder="SUBREDDIT: r/relationships&#10;TITLE: ...&#10;POST: ..."></textarea>
+            <div class="panel-meta">
+              <span id="char-count">0 characters</span>
+              <span>max {{ max_prompt_tokens }} tokens</span>
+            </div>
+            <fieldset class="models">
+              <legend class="sr-only">Models</legend>
+              <label class="tag"><input type="checkbox" name="method" value="sft" checked><span>SFT</span></label>
+              <label class="tag"><input type="checkbox" name="method" value="ppo" checked><span>PPO</span></label>
+              <label class="tag"><input type="checkbox" name="method" value="dpo" checked><span>DPO</span></label>
+            </fieldset>
+            <button type="submit" class="button" id="generate">Generate summaries</button>
+            <p class="panel-note">One policy is loaded at a time to keep memory low; the reward model stays resident.</p>
+          </form>
+        </div>
+      </section>
+
+      <div class="tag-row">
+        <span class="chip">SmolLM2-135M</span>
+        <span class="chip">PyTorch</span>
+        <span class="chip">Supervised fine-tuning</span>
+        <span class="chip">Bradley–Terry reward model</span>
+        <span class="chip">PPO with KL penalty</span>
+        <span class="chip">Direct preference optimization</span>
+        <span class="chip">ROUGE-L</span>
+      </div>
+
+      <section class="results" id="results">
+        <div class="section-head">
+          <h2>Results</h2>
+          <p class="status" id="status" aria-live="polite">Write a post, pick one or more models, and generate.</p>
+        </div>
+        <div class="results-grid" id="results-grid"></div>
+      </section>
+
+      {% if metrics %}
+      <section class="metrics" id="metrics">
+        <div class="section-head">
+          <h2>Offline evaluation</h2>
+          <p class="status">300 held-out posts · reward model score rϕ</p>
+        </div>
+        <div class="metric-grid">
+          {% for m in metrics %}
+          <article class="metric-card">
+            <p class="metric-value">{{ m.reward }}</p>
+            <p class="metric-label">{{ m.name }} · mean rϕ</p>
+            <div class="metric-row">
+              <span>win {{ m.win }}</span>
+              <span>KL {{ m.kl }}</span>
+              <span>ROUGE-L {{ m.rouge }}</span>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
+    </main>
+
+    <footer class="site-footer">
+      <span>built from scratch · SmolLM2-135M</span>
+      <span>running on {{ device }}</span>
+    </footer>
+  </div>
+
+  <script src="{{ url_for('static', path='script.js') }}"></script>
+</body>
+</html>

@@ -7,6 +7,14 @@ All four stages were trained in float32 on a single NVIDIA A100-SXM4-40GB.
 ## Structure
 
 ```
+├── app/                             # fastapi demo (one page, no build step)
+│   ├── inference.py                 # load one policy, generate, score, free it
+│   ├── main.py                      # routes + results/final_comparison.csv metrics
+│   ├── static/
+│   │   ├── script.js
+│   │   └── style.css
+│   └── templates/
+│       └── index.html
 ├── checkpoints/                     # sft/, reward/, ppo/, dpo/ (gitignored)
 ├── data/                            # Hugging Face dataset cache (gitignored)
 ├── notebooks/
@@ -49,6 +57,14 @@ HF_TOKEN=your_huggingface_token
 ```
 
 All paths and hyperparameters live in `src/config.py`.
+
+## Demo app
+
+```bash
+python -m uvicorn app.main:app --reload
+```
+
+Open http://127.0.0.1:8000, paste a post, tick SFT / PPO / DPO and generate. Each policy is loaded only for its own generation and then freed, so the app holds one policy plus the reward model at a time. Summaries come back side by side with their reward score, length and latency.
 
 ## Data
 

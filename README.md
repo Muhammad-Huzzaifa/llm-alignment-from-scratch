@@ -176,3 +176,7 @@ python -m scripts.push_to_hub
 ```
 
 Uploads the contents of `checkpoints/` to the model repo `<your-username>/llm-alignment-from-scratch`. The repo root contains `sft/`, `reward/`, `ppo/` and `dpo/` directly, without a `checkpoints/` folder.
+
+---
+[HuggingFace Checkpoins](https://huggingface.co/Muhammad-Huzzaifa/llm-alignment-from-scratch)
+

@@ -1,0 +1,5 @@
+Stage,Final train loss,Validation metric,Time / GPU
+SFT,2.3329,val. loss: 2.3534,0:10:50 / NVIDIA A100-SXM4-40GB
+Reward model,0.6081,pairwise acc.: 0.6210,0:20:41 / NVIDIA A100-SXM4-40GB
+PPO,-0.0041,final mean rϕ: 6.34,0:10:12 / NVIDIA A100-SXM4-40GB
+DPO,0.6146,implicit reward acc.: 0.6130,0:35:12 / NVIDIA A100-SXM4-40GB

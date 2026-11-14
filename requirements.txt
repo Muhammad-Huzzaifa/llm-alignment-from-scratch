@@ -8,3 +8,5 @@ matplotlib
 fastapi
 jinja2
 uvicorn
+tqdm
+modal

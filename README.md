@@ -179,4 +179,6 @@ Uploads the contents of `checkpoints/` to the model repo `<your-username>/llm-al
 
 ---
 [HuggingFace Checkpoins](https://huggingface.co/Muhammad-Huzzaifa/llm-alignment-from-scratch)
+[Medium Post](https://medium.com/@rudhan.lodhi3/summarize-from-human-feedback-sft-ppo-and-dpo-from-scratch-cde9dd0b4349?postPublishedType=initial)
+[Linekdin Post](https://lnkd.in/p/d6p9XqyW)
 
